@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Draw entry.png: a one-page newspaper front page summing up 19 Nov 2026.
 
-v1: built from the stories verified on the morning of 19 Nov 2026 (UTC).
-Regenerate after the day ends with the final story list before submitting.
+v2: final story list, researched after the day ended (20 Nov 2026, UTC).
+Lead is the first-ever Trump-Xi-Putin trilateral in Shenzhen and its
+Declaration Towards Peace; the grid adds the ICJ's Myanmar genocide ruling.
+Card headlines are kept to one line so the body fits the 196px card.
 """
 from PIL import Image, ImageDraw, ImageFont
 
@@ -50,33 +52,37 @@ M = 36  # margin
 d.rectangle([M, M, W - M, 186], fill=NAVY)
 d.text((M + 24, M + 14), "THE WORLD IN ONE DAY", font=font(SANS_B, 24), fill=(255, 255, 255))
 d.text((M + 24, M + 44), "19 NOVEMBER 2026", font=font(SERIF_B, 62), fill=(255, 255, 255))
-d.text((M + 24, M + 124), "THURSDAY  •  THE DAY'S NEWS IN ONE IMAGE",
+d.text((M + 24, M + 124), "THURSDAY  \u2022  THE DAY'S NEWS IN ONE IMAGE",
        font=font(SANS_B, 20), fill=(255, 214, 90))
 
 # ---- lead story ----
 y = 206
-d.text((M, y), "UNITED STATES", font=font(SANS_B, 20), fill=RED)
+d.text((M, y), "DIPLOMACY", font=font(SANS_B, 20), fill=RED)
 y += 28
-y = draw_wrapped(d, (M, y), "Democrats nominate Jeffries for Speaker",
+y = draw_wrapped(d, (M, y), "Trump, Xi and Putin issue a \u2018Declaration Towards Peace\u2019",
                  font(SERIF_B, 52), W - 2 * M, INK, spacing=4)
 y += 6
 y = draw_wrapped(d, (M, y),
-                 "House Democrats pick Hakeem Jeffries 251\u201311. He is in line to become the "
-                 "first Black Speaker when the new Congress convenes on 3 January 2027.",
+                 "In a first three-way summit in Shenzhen, the US, Chinese and Russian "
+                 "leaders pledge nuclear-risk talks, more oil supply, UN reform and ICC "
+                 "limits \u2014 but no deal on Ukraine, Iran or arms.",
                  font(SANS, 26), W - 2 * M, MUTED, spacing=4)
 y += 10
 d.line([M, y, W - M, y], fill=RULE, width=2)
 
 # ---- 2x2 grid ----
 stories = [
-    ("DIPLOMACY", "Trump, Xi and Putin due to meet in Shenzhen",
-     "The three leaders are set for a first trilateral meeting on the sidelines of the APEC summit in China."),
+    ("UNITED STATES", "Democrats nominate Jeffries",
+     "House Democrats pick Hakeem Jeffries 251\u201311, in line to be the first "
+     "Black Speaker on 3 January 2027."),
+    ("JUSTICE", "Myanmar committed genocide",
+     "The ICJ finds Myanmar committed genocide against the Rohingya, the first "
+     "such verdict against a state."),
     ("MIDDLE EAST", "US and Iran trade fire",
      "Washington struck a missile site on Qeshm Island; Tehran hit US bases in Bahrain and Kuwait."),
-    ("INDIA", "Cyclone Akvan nears the coast",
-     "The severe cyclone closes on Andhra Pradesh and Odisha, with red alerts in place."),
-    ("TECHNOLOGY", "GTA VI launches worldwide",
-     "After 13 years, Rockstar's sequel begins its global rollout \u2014 scoring 99 on Metacritic."),
+    ("INDIA", "Cyclone Akvan nears coast",
+     "Severe Cyclone Akvan closes on Andhra Pradesh and Odisha, due to make "
+     "landfall by Friday noon near Gopalpur, winds 90\u2013100 km/h, red alerts in place."),
 ]
 gx, gy = M, y + 18
 cw, ch, gap = 460, 196, 32
@@ -93,8 +99,8 @@ fy = gy + 2 * ch + 18 + 14
 d.rectangle([M, fy, W - M, fy + 96], fill=NAVY)
 d.text((M + 20, fy + 12), "ALSO TODAY", font=font(SANS_B, 20), fill=(255, 214, 90))
 draw_wrapped(d, (M + 20, fy + 40),
-             "Voyager 1 reaches one light-day from Earth  \u2022  EU proposes a \u20ac45bn loan "
-             "for Ukraine  \u2022  Pew: Islam on track to be the world's largest religion by 2035",
+             "GTA VI launches, scoring 99 on Metacritic  \u2022  Anthropic\u2019s record $81bn IPO  "
+             "\u2022  Voyager 1 reaches one light-day from Earth  \u2022  EU proposes a \u20ac45bn loan for Ukraine",
              font(SANS, 20), W - 2 * M - 40, (255, 255, 255), spacing=3)
 
 d.text((M, H - 34), "Compiled from wire reports  \u2022  19 November 2026",
